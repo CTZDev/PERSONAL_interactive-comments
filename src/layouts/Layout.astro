@@ -1,4 +1,8 @@
 ---
+import "@fontsource/rubik/400.css";
+import "@fontsource/rubik/500.css";
+import "@fontsource/rubik/700.css";
+
 interface Props {
   title: string;
 }
@@ -17,20 +21,37 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
-    <slot />
+    <div class="container">
+      <slot />
+    </div>
   </body>
 </html>
 
 <style is:global>
   :root {
-    --accent: 136, 58, 234;
-    --accent-light: 224, 204, 250;
-    --accent-dark: 49, 10, 101;
-    --accent-gradient: linear-gradient(45deg, rgb(var(--accent)), rgb(var(--accent-light)) 30%, white 60%);
+    /* Primary */
+    --cl-moderate-blue: hsl(238, 40%, 52%);
+    --cl-soft-red: hsl(358, 79%, 66%);
+    --cl-light-grayish-blue: hsl(239, 57%, 85%);
+    --cl-pale-red: hsl(357, 100%, 86%);
+
+    /* Neutral */
+    --cl-dark-blue: hsl(357, 100%, 86%);
+    --cl-grayish-blue: hsl(211, 10%, 45%);
+    --cl-light-gray: hsl(223, 19%, 93%);
+    --cl-very-light-gray: hsl(228, 33%, 97%);
+    --cl-white: hsl(0, 0%, 100%);
+
+    /* Font */
+    --ft-size: 16px;
+    --ft-family: "Rubik", sans-serif;
   }
   html {
-    font-family: system-ui, sans-serif;
-    background: #13151a;
-    background-size: 224px;
+    font-family: var(--ft-family), system-ui, sans-serif;
+    background: var(--cl-very-light-gray);
+  }
+  .container {
+    margin: 2rem auto;
+    background: inherit;
   }
 </style>
