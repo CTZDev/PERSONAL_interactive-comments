@@ -1,0 +1,125 @@
+---
+import { type Comment } from "../types/api.ts";
+import Button from "../components/Button.astro";
+import Modal from "./Modal.astro";
+
+interface Props extends Comment {}
+const { id, user, createdAt, content, score, replyingTo } = Astro.props;
+
+let isReply =
+  replyingTo && replyingTo?.length > 0
+    ? "ml-8 before:content['*'] before:absolute before:left-[-16px] before:top-0 before:w-[3px] before:h-full before:bg-black/10 before:rounded-xl"
+    : "";
+---
+
+<div>
+  <article
+    id={String(id)}
+    class={`mx-4 mb-4 p-4 rounded-lg bg-white relative ${isReply}`}>
+    <header class="header-comment flex items-center gap-3.5">
+      <figure class="size-10">
+        <img src={user?.image.webp} alt={user?.username} />
+      </figure>
+      <p class="font-medium">{user?.username}</p>
+      {
+        user?.username === "juliusomo" && (
+          <span class="bg-moderate-blue text-white py-0.5 px-1.5 rounded-md text-xs font-medium">
+            you
+          </span>
+        )
+      }
+      <span class="text-black/50">{createdAt}</span>
+    </header>
+    <div class="content-comment">
+      <p class="py-5 text-black/70">{content}</p>
+    </div>
+    <footer class="footer-comment flex justify-between items-center">
+      <div
+        class="footer-comment-likes flex items-center text-moderate-blue bg-very-light-gray rounded-lg font-medium">
+        <button
+          type="button"
+          class="p-2 w-9 opacity-50 grid place-items-center">
+          <img src="../../images/icon-plus.svg" alt="Plus" />
+        </button>
+        <span id="btnLikes" class="p-2 w-9">{score}</span>
+        <button type="button" class="p-2 w-9 opacity-50">
+          <img src="../../images/icon-minus.svg" alt="Minus" />
+        </button>
+      </div>
+
+      {
+        user.username !== "juliusomo" ? (
+          <Button
+            dataID={String(id)}
+            hasIcon
+            image="../../images/icon-reply.svg"
+            altImage="Reply"
+            text="Reply"
+          />
+        ) : (
+          <>
+            <div class="flex gap-3.5">
+              <Button
+                dataID={String(id)}
+                hasIcon
+                image="../../images/icon-delete.svg"
+                altImage="Delete"
+                text="Delete"
+              />
+              <Modal dataID={String(id)} />
+
+              <Button
+                dataID={String(id)}
+                hasIcon
+                image="../../images/icon-edit.svg"
+                altImage="Edit"
+                text="Edit"
+              />
+            </div>
+          </>
+        )
+      }
+    </footer>
+  </article>
+  <article>
+    <slot />
+  </article>
+</div>
+
+<script>
+  document.addEventListener("click", (e) => {
+    const isEvent = e.target instanceof Element;
+    const isDelete = isEvent && e.target.textContent?.trim() === "Delete";
+    const isEdit = isEvent && e.target.textContent?.trim() === "Edit";
+    const isReply = isEvent && e.target.textContent?.trim() === "Reply";
+    const $modal = document.querySelector(`.modal`);
+
+    // Mostrar modal (Show)
+    if (isDelete && e.target.matches("[data-id]")) {
+      if (!$modal?.classList.contains("active")) {
+        $modal?.classList.add("active");
+      }
+    }
+
+    // Ocultar el modal (X) y (Btn Cancel)
+    if (isEvent && e.target.matches(".cancel")) {
+      $modal?.classList.remove("active");
+    }
+
+    // Ocultar el modal cuando este activo y de clic en un espacio vacio
+    if (e.target === $modal && $modal?.classList.contains("active")) {
+      $modal?.classList.remove("active");
+    }
+  });
+
+  document.addEventListener("keyup", (e) => {
+    const isEvent = e.target instanceof Element;
+
+    if (e.key === "Escape") {
+      const $modal = document.querySelector(`.modal`);
+      if (isEvent && $modal?.classList.contains("active")) {
+        $modal?.classList.remove("active");
+      }
+    }
+  });
+</script>

@@ -1,9 +1,10 @@
 ---
 import Comment from "../components/Comment.astro";
 import Layout from "../layouts/Layout.astro";
+import Reply from "../components/Reply.astro";
 import { getCommentsByUser } from "../services/data.ts";
 
-const { comments } = await getCommentsByUser();
+const { comments, currentUser } = await getCommentsByUser();
 ---
 
 <Layout title="Welcome to Astro.">
@@ -23,9 +24,11 @@ const { comments } = await getCommentsByUser();
             score={reply.score}
             createdAt={reply?.createdAt}
             content={reply?.content}
+            replyingTo={reply.replyingTo}
           />
         ))}
       </Comment>
     ))
   }
+  <Reply img={currentUser.image.webp} altImg={currentUser.username} />
 </Layout>

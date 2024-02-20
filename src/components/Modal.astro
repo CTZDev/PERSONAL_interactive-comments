@@ -1,0 +1,47 @@
+---
+interface Props {
+  dataID: string;
+}
+
+const { dataID } = Astro.props;
+---
+
+<div data-id={dataID} class="modal overflow-hidden">
+  <div class="modal-content p-7 bg-white w-80 rounded-xl">
+    <h2 class="font-medium text-lg">Delete comment</h2>
+    <p class="py-6 text-black/60 text-base">
+      Are you sure want to delete this comment? This will remove the comment and
+      can't be undone
+    </p>
+    <div class="modal-buttons flex items-center gap-2.5">
+      <button
+        class="cancel select-none p-2 font-medium rounded-md uppercase bg-grayish-blue text-white flex-1">
+        Cancel</button
+      >
+      <button
+        class="delete select-none p-2 font-medium rounded-md uppercase bg-soft-red text-white flex-1"
+        data-id={String(dataID)}>
+        Delete</button
+      >
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal {
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+  }
+
+  .modal.active {
+    display: flex;
+  }
+</style>
