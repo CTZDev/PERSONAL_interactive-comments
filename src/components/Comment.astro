@@ -8,7 +8,7 @@ const { id, user, createdAt, content, score, replyingTo } = Astro.props;
 
 let isReply =
   replyingTo && replyingTo?.length > 0
-    ? "ml-8 before:content['*'] before:absolute before:left-[-16px] before:top-0 before:w-[3px] before:h-full before:bg-black/10 before:rounded-xl"
+    ? "ml-8 md:ml-28 before:content['*'] before:absolute before:left-[-16px] md:before:left-[-48px] before:top-0 before:w-[3px] before:h-full before:bg-black/10 before:rounded-xl"
     : "";
 ---
 
@@ -57,7 +57,7 @@ let isReply =
             text="Reply"
           />
         ) : (
-          <>
+          <div>
             <div class="flex gap-3.5">
               <Button
                 dataID={String(id)}
@@ -76,11 +76,12 @@ let isReply =
                 text="Edit"
               />
             </div>
-          </>
+          </div>
         )
       }
     </footer>
   </article>
+
   <article>
     <slot />
   </article>

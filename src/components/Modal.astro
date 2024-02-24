@@ -15,13 +15,13 @@ const { dataID } = Astro.props;
     </p>
     <div class="modal-buttons flex items-center gap-2.5">
       <button
-        class="cancel select-none p-2 font-medium rounded-md uppercase bg-grayish-blue text-white flex-1">
-        Cancel</button
+        class="cancel select-none py-2.5 p-3.5 font-medium rounded-md uppercase bg-grayish-blue text-white flex-1">
+        No, Cancel</button
       >
       <button
-        class="delete select-none p-2 font-medium rounded-md uppercase bg-soft-red text-white flex-1"
+        class="delete select-none py-2.5 p-3.5 font-medium rounded-md uppercase bg-soft-red text-white flex-1"
         data-id={String(dataID)}>
-        Delete</button
+        Yes, Delete</button
       >
     </div>
   </div>

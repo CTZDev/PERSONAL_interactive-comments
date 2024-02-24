@@ -9,24 +9,22 @@ interface Props {
 const { img, altImg } = Astro.props;
 ---
 
-<article class="mx-4 mb-4 p-4 rounded-lg bg-white">
+<article
+  class="mx-4 mb-4 p-4 rounded-lg bg-white flex flex-wrap items-start md:gap-4">
   <textarea
     name="txtacomments"
     id="txtacomments"
-    class="resize-none border-black border-opacity-25 border rounded-lg p-3 mb-4"
+    class="resize-none border-black border-opacity-25 border rounded-lg p-3 mb-4 flex-1 min-w-full md:min-w-min md:order-2"
     placeholder="Add a comment..."></textarea>
-  <div class="flex items-center justify-between">
-    <img src={img} alt={altImg} width="40" height="40" />
-    <Button
-      text="Send"
-      className="border border-black px-4 py-2.5 rounded-md text-white bg-moderate-blue uppercase"
-    />
-  </div>
+  <img src={img} alt={altImg} width="40" height="40" class="md:order-1" />
+  <Button
+    text="Send"
+    className="ml-auto border border-black px-8 py-2.5 rounded-md text-white bg-moderate-blue uppercase md:order-3"
+  />
 </article>
 
 <style>
   textarea {
-    width: 100%;
     min-height: 15vh;
   }
 </style>
