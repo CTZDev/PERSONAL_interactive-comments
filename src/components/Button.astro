@@ -15,7 +15,7 @@ let colorText = hasIcon ? "text-moderate-blue" : "text-white";
 <button
   data-id={dataID}
   type="button"
-  class=`flex justify-center items-center gap-1.5 border-0 select-none focus:outline-none ${className}`>
+  class=`flex justify-center items-center gap-1.5 border-0 select-none focus:outline-none  transition-opacity hover:opacity-50 ${className}`>
   {hasIcon && <img src={image} alt={altImage} />}
   <span class=`font-medium ${colorText}`>{text}</span>
 </button>
